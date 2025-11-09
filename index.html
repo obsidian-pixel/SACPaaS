@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro Color Picker Studio</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body data-theme="light">
+    <header>
+      <h1>🎨 Pro Color Picker Studio</h1>
+      <div>
+        <button id="toggle-theme">🌙 Dark Mode</button>
+        <button id="clear-palette">🗑️ Clear</button>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <!-- Left Panel: Color Input -->
+      <div class="panel">
+        <h2>Input</h2>
+
+        <div id="dropzone">
+          📸 Drag & Drop Image Here<br />
+          <small>or click to browse</small>
+          <input
+            type="file"
+            id="file-input"
+            accept="image/*"
+            style="display: none"
+          />
+        </div>
+
+        <div class="color-card">
+          <label>Manual Input:</label>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem">
+            <input
+              type="text"
+              id="hex-input"
+              placeholder="#ff5733"
+              maxlength="7"
+            />
+            <button id="add-hex">Add Color</button>
+          </div>
+        </div>
+
+        <div id="color-wheel-container" class="color-card">
+          <h3>Color Wheel</h3>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+              justify-content: center;
+            "
+          >
+            <canvas id="color-wheel" width="180" height="180"></canvas>
+            <div>
+              <label>Lightness:</label>
+              <input
+                type="range"
+                id="lightness"
+                min="0"
+                max="100"
+                value="50"
+                style="width: 100px"
+              />
+              <span id="selected-hex">#ffffff</span>
+              <button id="add-to-dominant">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="color-scheme-container" class="color-card">
+          <h3>Color Harmonies</h3>
+          <select id="scheme-select">
+            <option value="monochrome">Monochrome</option>
+            <option value="complementary">Complementary</option>
+            <option value="analogous">Analogous</option>
+            <option value="triadic">Triadic</option>
+            <option value="tetradic">Tetradic</option>
+            <option value="split-complementary">Split Complementary</option>
+          </select>
+          <p>Click the colors below to add to pallette:</p>
+          <div id="scheme-colors"></div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Palette & Tools -->
+      <div class="panel">
+        <h2>Palette <span id="color-count">(0 colors)</span></h2>
+        <div id="colors"></div>
+
+        <div class="color-card">
+          <h3>Gradient Preview</h3>
+          <div
+            style="
+              display: flex;
+              gap: 0.5rem;
+              align-items: center;
+              margin-bottom: 0.5rem;
+            "
+          >
+            <select id="gradient-type">
+              <option value="linear">Linear</option>
+              <option value="radial">Radial</option>
+            </select>
+            <label>Angle: <span id="angle-value">90°</span></label>
+            <input
+              type="range"
+              id="gradient-angle"
+              min="0"
+              max="360"
+              value="90"
+            />
+          </div>
+          <div id="gradient-preview"></div>
+        </div>
+
+        <div class="color-card">
+          <h3>Contrast Checker</h3>
+          <div id="contrast-checker">
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem">
+              <div style="flex: 1">
+                <label>Foreground:</label>
+                <select id="contrast-fg" style="width: 100%"></select>
+              </div>
+              <div style="flex: 1">
+                <label>Background:</label>
+                <select id="contrast-bg" style="width: 100%"></select>
+              </div>
+            </div>
+            <div id="contrast-result">Select colors to check contrast</div>
+          </div>
+        </div>
+
+        <div class="export color-card">
+          <h3>Export - Click one of the fields to copy</h3>
+          <input id="hex-export" readonly placeholder="HEX" />
+          <input id="rgb-export" readonly placeholder="RGB" />
+          <input id="hsl-export" readonly placeholder="HSL" />
+          <input id="css-export" readonly placeholder="CSS Gradient" />
+          <input id="tailwind-export" readonly placeholder="Tailwind Classes" />
+          <input id="scss-export" readonly placeholder="SCSS Variables" />
+          <button id="copy-all">📋 Copy All Formats</button>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="canvas" style="display: none"></canvas>
+
+    <script src="index.js"></script>
+  </body>
+</html>
